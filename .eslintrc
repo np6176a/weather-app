@@ -1,0 +1,10 @@
+{
+  "env": {
+    "jest" : true,
+    "browser": true
+  },
+  "extends": [
+    "standard",
+    "standard-react"
+  ]
+}
