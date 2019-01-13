@@ -1,0 +1,24 @@
+.weatherApp{
+  .row{
+    margin: 0;
+  }
+}
+.day{
+  background: url("assets/daybg.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #fff;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #fff;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #fff;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #fff;
+}

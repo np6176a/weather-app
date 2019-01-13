@@ -1,0 +1,30 @@
+.locationInputContainer {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 200px;
+  border: 1px solid #fff;
+  background: rgba(68, 154, 217, 0.75);
+  padding: 5px 5px 5px 15px;
+  margin: 80px auto;
+  text-align: left;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.15);
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.15);
+  .locationInput{
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 150%;
+    box-shadow: none;
+    outline: none;
+    width: 90%;
+    vertical-align: middle;
+  }
+  .searchIcon{
+    width: 9%;
+    display: inline-block;
+    svg{
+      stroke: #ffffff;
+    }
+  }
+}
