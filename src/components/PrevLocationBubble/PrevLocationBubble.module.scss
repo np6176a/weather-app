@@ -1,0 +1,29 @@
+.bubble{
+  list-style: none;
+  display: inline-block;
+  background: transparent;
+  border-radius: 50px;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 75%;
+  margin: 5px;
+  button{
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+    border-radius: 0;
+    border: none;
+    color: #fff;
+  }
+  .remove{
+    border-left: 1px solid #fff;
+    svg{
+      stroke: #ffffff;
+      margin-top: -3px;
+    }
+  }
+  &:hover{
+    background: #1C3C6D;
+    cursor: pointer;
+  }
+}

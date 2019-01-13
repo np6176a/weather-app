@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { Rain } from '../../assets/rain.svg'
 
 class WeatherInfoDisplay extends PureComponent {
   render () {
@@ -7,16 +8,13 @@ class WeatherInfoDisplay extends PureComponent {
     if (currentWeather != null) {
       return (
         <div className='col-sm-6 row'>
-          <div className='col-sm-6'>
-            <h6>{currentWeather.dt}</h6>
-            <h1>{currentWeather.main.temp}</h1>
-            <p>{currentWeather.main.temp_max}</p>
-            <p>{currentWeather.main.temp_min}</p>
+          <div className='col-xs-12'>
+            <img src={Rain} />
+            <h4>{currentWeather.weather.main}</h4>
+            <p>{currentWeather.weather.description}</p>
           </div>
           <div className='col-sm-6'>
-            <div>{currentWeather.weather[0].icon}</div>
-            <h4>{currentWeather.weather[0].main}</h4>
-            <p>{currentWeather.weather[0].description}</p>
+            <h4>{currentWeather.weather.main}</h4>
           </div>
         </div>
       )
