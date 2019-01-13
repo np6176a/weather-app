@@ -11,6 +11,7 @@ import TemperatureDisplay from './components/TemperatureDisplay'
 import { getOpenWeatherDateByCityId } from './utils/externalApiUtils/openWeatherMapUtils'
 import PrevLocationBubble from './components/PrevLocationBubble'
 import WeatherInfoDisplay from './components/WeatherInfoDisplay'
+import ForecastDisplay from './components/ForecastDisplay'
 
 // import TemperatureDisplay from './components/TemperatureDisplay'
 
@@ -109,10 +110,11 @@ class App extends Component {
           allLocations={allLocations}
           removeLocation={this.removeLocation}
         />
-        <div className='row maxWidth'>
-          <TemperatureDisplay currentWeather={currentWeather} />
-          <WeatherInfoDisplay currentWeather={currentWeather} />
+        <div className='row maxWidth middle-xs'>
+          {this.weatherData !== undefined && <TemperatureDisplay currentWeather={currentWeather} />}
+          {this.weatherData !== undefined && <WeatherInfoDisplay currentWeather={currentWeather} />}
         </div>
+        {this.weatherData !== undefined && <ForecastDisplay onSelectedDateChange={this.onSelectedDateChange} weatherData={forecast} />}
       </div>
     )
   }
