@@ -6,7 +6,7 @@ class ForecastTemp extends PureComponent {
   render () {
     const { eachDayTemp } = this.props
     return (
-      <h3>{Math.round(eachDayTemp * 10) / 10}
+      <h3>{Math.round(eachDayTemp)}
         <span className={styles.degree}>
           {`\xB0`}
         </span>

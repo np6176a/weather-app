@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import CurrentTemp from './components/CurrentTemp'
 import styles from './TemperatureDisplay.module.scss'
+import TempMinMax from './components/TempMinMax'
 
 class TemperatureDisplay extends PureComponent {
   render () {
@@ -10,28 +12,8 @@ class TemperatureDisplay extends PureComponent {
     return (
       <div className={`col-sm-6 row middle-xs ${styles.mainContent}`}>
         <h6>{date}</h6>
-        <h1>{Math.round(currentWeather.main.temp * 10) / 10}
-          <span className={styles.degree}>
-            {`\xB0`}
-          </span>
-          <span className={styles.unit}>
-                F
-          </span>
-        </h1>
-        <p>
-          <span className={styles.max}>
-                max: {Math.round(currentWeather.main.temp_max * 10) / 10}
-            <span className={styles.degree}>
-              {`\xB0`}
-            </span>
-          </span>
-          <span className={styles.min}>
-                min: {Math.round(currentWeather.main.temp_min * 10) / 10}
-            <span className={styles.degree}>
-              {`\xB0`}
-            </span>
-          </span>
-        </p>
+        <CurrentTemp currentTemp={currentWeather.main.temp} />
+        <TempMinMax tempMax={currentWeather.main.temp_max} tempMin={currentWeather.main.temp_min} />
       </div>
     )
   }
