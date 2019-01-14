@@ -21,8 +21,8 @@ class LocationInput extends Component {
             <span className={styles.searchIcon}>
               <Icon icon={search} size={20} />
             </span>
-            {invalidLocation && <p>Invalid Location</p>}
           </div>
+          {invalidLocation && <p className='error'>Invalid Location.</p>}
         </div>
       </form>
     )

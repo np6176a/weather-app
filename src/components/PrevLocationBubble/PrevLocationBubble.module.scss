@@ -27,3 +27,12 @@
     cursor: pointer;
   }
 }
+
+@media (max-width: 767px) {
+  .bubble{
+    font-size: 120%;
+    button{
+      font-size: 100%;
+    }
+  }
+}

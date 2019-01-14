@@ -11,13 +11,13 @@ class ForecastDisplay extends PureComponent {
     const { weatherData, onSelectedDateChange } = this.props
     const dataByDay = groupWeatherByDate({ weatherData })
     return (
-      <div className='row maxWidth middle-xs center-xs'>
+      <div className='row maxWidth middle-xs center-sm start-xs'>
         {dataByDay.map((eachDay) => {
           const date = moment.unix(eachDay.dt).format('MMM Do')
           return (
             <button
               onClick={() => onSelectedDateChange({ selectedDate: eachDay.dt })}
-              className={`col-xs-12 col-sm-2 ${styles.btn}`}
+              className={`col-xs-4 col-sm-2 ${styles.btn}`}
               key={eachDay.dt}>
               <div className={styles.box}>
                 <h6>{date}</h6>

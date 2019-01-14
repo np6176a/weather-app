@@ -9,11 +9,11 @@ class WeatherInfoDisplay extends PureComponent {
   render () {
     const { currentWeather } = this.props
     return (
-      <div className='col-sm-6 middle-xs row'>
-        <div className='col-xs-3'>
+      <div className={`col-sm-6 col-xs-12 middle-xs center-xs start-sm row ${styles.weatherInfo}`}>
+        <div className='col-xs-5 col-sm-3'>
           <WeatherIcon weatherTitle={currentWeather.weather[0].main} />
         </div>
-        <div className={`col-xs-9 ${styles.description}`}>
+        <div className={`col-xs-7 col-sm-9 start-xs ${styles.description}`}>
           <h2>{currentWeather.weather[0].main}</h2>
         </div>
         <HumidityDisplay humidity={currentWeather.main.humidity} />

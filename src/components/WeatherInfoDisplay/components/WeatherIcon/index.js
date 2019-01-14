@@ -23,7 +23,7 @@ class WeatherIcon extends PureComponent {
     const { weatherTitle } = this.props
     const icon = findIcon(weatherTitle)
     return (
-      <img alt='Weather Icon' src={icon} />
+      <img className='icon' alt='Weather Icon' src={icon} />
     )
   }
 }
