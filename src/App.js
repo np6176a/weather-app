@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import reject from 'lodash/reject'
 import unionBy from 'lodash/unionBy'
 import find from 'lodash/find'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import 'flexboxgrid'
 import './App.scss'
 import LocationInput from './components/LocationInput'
@@ -118,13 +118,13 @@ class App extends Component {
           allLocations={allLocations}
           removeLocation={this.removeLocation}
         />
-        {forecast === undefined && <InitialDisplay />}
+        {(forecast === undefined || hasError) && <InitialDisplay />}
         {hasError && <ErrorMessage />}
-        {forecast !== undefined && <div className='row maxWidth middle-xs'>
+        {(forecast !== undefined || hasError) && <div className='row maxWidth middle-xs'>
           <TemperatureDisplay currentWeather={currentWeather} />
           <WeatherInfoDisplay currentWeather={currentWeather} />
         </div>}
-        {forecast !== undefined && <ForecastDisplay onSelectedDateChange={this.onSelectedDateChange} weatherData={forecast} />}
+        {(forecast !== undefined || hasError) && <ForecastDisplay onSelectedDateChange={this.onSelectedDateChange} weatherData={forecast} />}
       </div>
     )
   }
