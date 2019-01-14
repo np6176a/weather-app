@@ -6,7 +6,7 @@
 # Weather App
 
 <p align="center">
-  <img src="readme_images/logo.png" width="250">
+  <img src="readme_images/logo.png" width="100">
 </p>
 
 * [Overview](#overview)
