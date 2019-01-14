@@ -1,23 +1,25 @@
-.btn{
+.btn {
   background: transparent;
   border-radius: 0;
   border: none;
   outline: none;
   color: #fff;
   font-size: 100%;
-  .box{
-    border: 1px solid #fff;
+  .box {
+    border: 1px solid transparent;
     border-radius: 10px;
     max-width: 150px;
     margin: 0 auto;
     max-height: 200px;
     height: 100vh;
   }
-  h6{
+
+  h6 {
     margin: 20px auto;
     width: 100%;
   }
-  img{
+
+  img {
     max-width: 50px;
     max-height: 50px;
     object-fit: contain;
@@ -25,32 +27,43 @@
     height: 100vh;
     margin: 0 auto;
   }
-  h3{
+
+  h3 {
     margin: 10px auto 20px;
-    .degree{
+
+    .degree {
       font-size: 60%;
       vertical-align: top;
       padding: 0 2px;
     }
-    .unit{
+
+    .unit {
       font-size: 80%;
       vertical-align: baseline;
     }
   }
-  p{
+
+  p {
     margin: 10px 0 0;
   }
 }
 
-@media only screen and (min-width: 48em){
-  .btn{
+.forecastActive {
+  .box {
+    border: 1px solid #fff;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@media only screen and (min-width: 48em) {
+  .btn {
     flex-basis: 16%;
     max-width: 16%;
   }
 }
 
 @media (max-width: 767px) {
-  .btn{
+  .btn {
     margin-bottom: 10px;
   }
 }

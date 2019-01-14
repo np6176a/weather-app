@@ -8,7 +8,7 @@ import ForecastTemp from './components/ForecastTemp'
 
 class ForecastDisplay extends PureComponent {
   render () {
-    const { weatherData, onSelectedDateChange } = this.props
+    const { weatherData, onSelectedDateChange, selectedDate } = this.props
     const dataByDay = groupWeatherByDate({ weatherData })
     return (
       <div className='row maxWidth middle-xs center-sm start-xs'>
@@ -17,7 +17,11 @@ class ForecastDisplay extends PureComponent {
           return (
             <button
               onClick={() => onSelectedDateChange({ selectedDate: eachDay.dt })}
-              className={`col-xs-4 col-sm-2 ${styles.btn}`}
+              className={`
+              col-xs-4 col-sm-2
+              ${styles.btn}
+              ${selectedDate === eachDay.dt ? styles.forecastActive : ''}
+              `}
               key={eachDay.dt}>
               <div className={styles.box}>
                 <h6>{date}</h6>
@@ -35,7 +39,8 @@ class ForecastDisplay extends PureComponent {
 
 ForecastDisplay.propTypes = {
   weatherData: PropTypes.array,
-  onSelectedDateChange: PropTypes.func
+  onSelectedDateChange: PropTypes.func,
+  selectedDate: PropTypes.number
 }
 
 export default ForecastDisplay

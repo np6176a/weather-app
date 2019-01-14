@@ -63,7 +63,7 @@ class App extends Component {
     this.setState({ userInput })
   }
 
-  handleError(e) {
+  handleError (e) {
     console.log(e)
     this.setState({ hasError: true })
   }
@@ -142,6 +142,7 @@ class App extends Component {
               <ForecastDisplay
                 onSelectedDateChange={this.onSelectedDateChange}
                 weatherData={forecast}
+                selectedDate={selectedDate}
               />
             </>
           )
