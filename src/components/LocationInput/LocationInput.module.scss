@@ -23,6 +23,10 @@
     vertical-align: middle;
   }
   .searchIcon{
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
     width: 9%;
     display: inline-block;
     svg{

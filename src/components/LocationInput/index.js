@@ -18,9 +18,9 @@ class LocationInput extends Component {
               value={userInput}
               onChange={onUserInputChange}
               placeholder='Search' />
-            <span className={styles.searchIcon}>
+            <button onClick={onsubmit} className={styles.searchIcon}>
               <Icon icon={search} size={20} />
-            </span>
+            </button>
           </div>
           {invalidLocation && <p className='error'>Invalid Location.</p>}
         </div>
