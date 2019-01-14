@@ -2,28 +2,27 @@ import React, { Component } from 'react'
 import reject from 'lodash/reject'
 import unionBy from 'lodash/unionBy'
 import find from 'lodash/find'
-import moment from 'moment-timezone'
 import 'flexboxgrid'
 import './App.scss'
 import LocationInput from './components/LocationInput'
 import { readLocationData, saveLocationData } from './utils/persistenceUtils'
-import { getWeatherFromQuery } from './utils/weatherUtils'
 import TemperatureDisplay from './components/TemperatureDisplay'
-import { getOpenWeatherDateByCityId } from './utils/externalApiUtils/openWeatherMapUtils'
+import { getOpenWeatherDataByGeo, getOpenWeatherDateByCityId } from './utils/externalApiUtils/openWeatherMapUtils'
 import PrevLocationBubble from './components/PrevLocationBubble'
 import WeatherInfoDisplay from './components/WeatherInfoDisplay'
 import ForecastDisplay from './components/ForecastDisplay'
 import ErrorMessage from './components/ErrorMessage'
 import LoadingDisplay from './components/LoadingDisplay'
 import InitialDisplay from './components/InitialDisplay'
-
-// import TemperatureDisplay from './components/TemperatureDisplay'
+import { getLocationFromOpenCage } from './utils/externalApiUtils/openCageUtils'
+import { timeOfDay } from './utils/dateUtils'
 
 class App extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
+      invalidLocation: false,
       loading: false,
       hasError: false,
       weatherData: {},
@@ -32,6 +31,7 @@ class App extends Component {
       userInput: ''
     }
     this.removeLocation = this.removeLocation.bind(this)
+    this.handleError = this.handleError.bind(this)
     this.mergeLocation = this.mergeLocation.bind(this)
     this.onLocationChange = this.onLocationChange.bind(this)
     this.updateAllLocations = this.updateAllLocations.bind(this)
@@ -63,27 +63,35 @@ class App extends Component {
     this.setState({ userInput })
   }
 
+  handleError(e) {
+    console.log(e)
+    this.setState({ hasError: true })
+  }
+
   async onLocationChange (e) {
     e.preventDefault()
-    this.setState({ loading: true, hasError: false })
+    this.setState({ loading: true, hasError: false, invalidLocation: false })
     const userInput = e.target.elements.userInput.value
     try {
-      const { cityId, name, forecast } = await getWeatherFromQuery(userInput)
+      const { lat, lng } = await getLocationFromOpenCage(userInput)
+      if (!lat) {
+        this.setState({ loading: false, invalidLocation: true })
+        return
+      }
+      const { cityId, name, forecast } = await getOpenWeatherDataByGeo({ lat, lng })
       const updatedLocations = this.mergeLocation({ cityId, userInput })
       this.updateAllLocations({ allLocations: updatedLocations })
       this.setState({
         weatherData: { cityId, name, forecast, userInput },
         selectedDate: forecast[0].dt
       })
-    } catch (e) {
-      console.log(e)
-      this.setState({ hasError: true })
-    }
+    } catch (e) { this.handleError(e) }
     this.setState({ loading: false })
   }
+
   async onSelectPrevLocation (event) {
     event.preventDefault()
-    this.setState({ loading: true, hasError: false })
+    this.setState({ loading: true, hasError: false, invalidLocation: false })
     const cityId = event.target.getAttribute('keyName')
     const userInput = find(this.state.allLocations.userInput, { cityId: event.target.getAttribute('keyName') })
     try {
@@ -93,22 +101,27 @@ class App extends Component {
         selectedDate: forecast[0].dt,
         userInput: name
       })
-    } catch (e) {
-      console.log(e)
-      this.setState({ hasError: true })
-    }
+    } catch (e) { this.handleError(e) }
     this.setState({ loading: false })
   }
+
   render () {
-    const { allLocations, weatherData: { forecast }, selectedDate, userInput, loading, hasError } = this.state
+    const {
+      allLocations,
+      weatherData: { forecast },
+      selectedDate,
+      userInput,
+      loading,
+      hasError,
+      invalidLocation
+    } = this.state
     const currentWeather = find(forecast, { dt: selectedDate })
-    const time = moment()
-    const beforeTime = moment('07:30:00', 'hh:mm:ss')
-    const afterTime = moment('18:30:00', 'hh:mm:ss')
+    if (hasError) return <ErrorMessage />
     return (
-      <div className={`weatherApp ${(time.isBetween(beforeTime, afterTime) ? 'day' : 'night')}`}>
+      <div className={`weatherApp ${timeOfDay()}`}>
         {loading && <LoadingDisplay />}
         <LocationInput
+          invalidLocation={invalidLocation}
           onLocationChange={this.onLocationChange}
           userInput={userInput}
           onUserInputChange={this.onUserInputChange}
@@ -118,13 +131,21 @@ class App extends Component {
           allLocations={allLocations}
           removeLocation={this.removeLocation}
         />
-        {(forecast === undefined || hasError) && <InitialDisplay />}
-        {hasError && <ErrorMessage />}
-        {(forecast !== undefined || hasError) && <div className='row maxWidth middle-xs'>
-          <TemperatureDisplay currentWeather={currentWeather} />
-          <WeatherInfoDisplay currentWeather={currentWeather} />
-        </div>}
-        {(forecast !== undefined || hasError) && <ForecastDisplay onSelectedDateChange={this.onSelectedDateChange} weatherData={forecast} />}
+        {!forecast && <InitialDisplay />}
+        {
+          forecast && (
+            <>
+              <div className='row maxWidth middle-xs'>
+                <TemperatureDisplay currentWeather={currentWeather} />
+                <WeatherInfoDisplay currentWeather={currentWeather} />
+              </div>
+              <ForecastDisplay
+                onSelectedDateChange={this.onSelectedDateChange}
+                weatherData={forecast}
+              />
+            </>
+          )
+        }
       </div>
     )
   }

@@ -37,8 +37,8 @@ whenever a deploy is desired rather than automated in some other way.
 ## Styling
 
 Styling for each component is done using React SCSS modules. This keeps the CSS clean
-and easy to read. I believe CSS module support was only added recently to CRA and
-it's one of their most useful additions for styling.
+and easy to read. Some cool UI style features include dynamic weather icons, 
+day and night mode.
 
 ## Weather Information
 

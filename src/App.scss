@@ -48,6 +48,17 @@
     font-weight: 400;
     width: 100%;
   }
+  .details{
+    margin-top: 30px;
+    img{
+      max-width: 50px;
+      max-height: 50px;
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      vertical-align: middle;
+    }
+  }
 }
 .day{
   background: url("assets/daybg.jpg") no-repeat;
