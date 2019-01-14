@@ -1,28 +1,25 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Icon } from 'react-icons-kit'
-import { x } from 'react-icons-kit/feather/x'
+import RemoveBtn from './components/RemoveBtn'
 import styles from './PrevLocationBubble.module.scss'
+import SelectLocationBtn from './components/SelectLocationBtn'
 
 class PrevLocationBubble extends Component {
   render () {
     const { allLocations, onSelectPrevLocation, removeLocation } = this.props
-    const previousLocations = allLocations.map((loc) => {
-      return (
-        <li className={styles.bubble} key={loc.userInput}>
-          <button keyname={loc.cityId} onClick={onSelectPrevLocation}>
-            {loc.userInput}
-          </button>
-          <button className={styles.remove} onClick={() => removeLocation({ cityId: loc.cityId })}>
-            <Icon icon={x} size={10} />
-          </button>
-        </li>
-      )
-    })
     return (
       <div className='row center-xs'>
         <ul className='col-xs-12'>
-          { previousLocations }
+          {
+            allLocations.map((loc) => {
+              return (
+                <li className={styles.bubble} key={loc.userInput}>
+                  <SelectLocationBtn onSelectPrevLocation={onSelectPrevLocation} location={loc} />
+                  <RemoveBtn removeLocation={removeLocation} cityId={loc.cityId} />
+                </li>
+              )
+            })
+          }
         </ul>
       </div>
     )
