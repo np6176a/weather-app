@@ -9,7 +9,7 @@ class WeatherInfoDisplay extends PureComponent {
   render () {
     const { currentWeather } = this.props
     return (
-      <div className={`col-sm-6 col-xs-12 middle-xs center-xs start-sm row ${styles.weatherInfo}`}>
+      <div className={`col-sm-7 col-xs-12 middle-xs center-xs start-sm row ${styles.weatherInfo}`}>
         <div className='col-xs-5 col-sm-3'>
           <WeatherIcon weatherTitle={currentWeather.weather[0].main} />
         </div>
