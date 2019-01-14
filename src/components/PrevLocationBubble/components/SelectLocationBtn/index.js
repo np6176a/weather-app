@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-
 class SelectLocationBtn extends Component {
   render () {
     const { onSelectPrevLocation, location } = this.props

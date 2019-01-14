@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment-timezone'
 import { groupWeatherByDate } from './util'
-import ForecastIcon from './components/ForecastIconComponent'
+import WeatherIcon from '../WeatherInfoDisplay/components/WeatherIcon'
 import styles from './ForecastDisplay.module.scss'
 import ForecastTemp from './components/ForecastTemp'
 
@@ -21,7 +21,7 @@ class ForecastDisplay extends PureComponent {
               key={eachDay.dt}>
               <div className={styles.box}>
                 <h6>{date}</h6>
-                <ForecastIcon eachDay={eachDay.weather[0].main} />
+                <WeatherIcon weatherTitle={eachDay.weather[0].main} />
                 <p>{eachDay.weather[0].main}</p>
                 <ForecastTemp eachDayTemp={eachDay.main.temp} />
               </div>

@@ -14,22 +14,22 @@ const ICON_MAPPING = {
 }
 const ICON_KEYS = Object.keys(ICON_MAPPING)
 
-const findIcon = (eachDay) => {
-  const icon = find(ICON_KEYS, key => eachDay.toLowerCase().includes(key))
+const findIcon = (weatherTitle) => {
+  const icon = find(ICON_KEYS, key => weatherTitle.toLowerCase().includes(key))
   return ICON_MAPPING[icon]
 }
-class ForecastIcon extends PureComponent {
+class WeatherIcon extends PureComponent {
   render () {
-    const { eachDay } = this.props
-    const icon = findIcon(eachDay)
+    const { weatherTitle } = this.props
+    const icon = findIcon(weatherTitle)
     return (
       <img alt='Weather Icon' src={icon} />
     )
   }
 }
 
-ForecastIcon.propTypes = {
-  eachDay: PropTypes.string
+WeatherIcon.propTypes = {
+  weatherTitle: PropTypes.string
 }
 
-export default ForecastIcon
+export default WeatherIcon
