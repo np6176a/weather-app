@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import search from '../../assets/searchGif.gif'
 import styles from './ErrorMessage.module.scss'
 
 class ErrorMessage extends PureComponent {

@@ -1,12 +1,16 @@
 //Default styles
 .weatherApp{
+  background-position: center top;
+  background-size: cover;
+  min-height: 100vh;
+  height: 100%;
   color: #fff;
   .row{
     margin: 0;
   }
   .maxWidth {
     max-width: 820px;
-    margin: 40px auto 80px;
+    margin: 40px auto 60px;
   }
   ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #fff;
@@ -47,10 +51,8 @@
 }
 .day{
   background: url("assets/daybg.jpg") no-repeat;
-  background-position: center top;
-  background-size: cover;
-  min-height: 100vh;
-  height: 100%;
 }
-
+.night{
+  background: url("assets/nightbg.jpg") no-repeat;
+}
 

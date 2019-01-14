@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import reject from 'lodash/reject'
 import unionBy from 'lodash/unionBy'
 import find from 'lodash/find'
+import moment from 'moment'
 import 'flexboxgrid'
 import './App.scss'
 import LocationInput from './components/LocationInput'
@@ -101,8 +102,11 @@ class App extends Component {
   render () {
     const { allLocations, weatherData: { forecast }, selectedDate, userInput, loading, hasError } = this.state
     const currentWeather = find(forecast, { dt: selectedDate })
+    const time = moment()
+    const beforeTime = moment('07:30:00', 'hh:mm:ss')
+    const afterTime = moment('18:30:00', 'hh:mm:ss')
     return (
-      <div className='weatherApp day'>
+      <div className={`weatherApp ${(time.isBetween(beforeTime, afterTime) ? 'day' : 'night')}`}>
         {loading && <LoadingDisplay />}
         <LocationInput
           onLocationChange={this.onLocationChange}

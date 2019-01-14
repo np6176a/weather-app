@@ -10,6 +10,7 @@ import clouds from '../../assets/partial.svg'
 class ForecastDisplay extends PureComponent {
   render () {
     const { weatherData, onSelectedDateChange } = this.props
+    console.log(weatherData)
     const weather = weatherData.slice(0, 6).map((eachDay) => {
       const date = moment.unix(eachDay['dt']).format('MMM Do')
       return (
@@ -19,12 +20,18 @@ class ForecastDisplay extends PureComponent {
           key={eachDay.dt}>
           <div className={styles.box}>
             <h6>{date}</h6>
-            {eachDay.weather[0].main === 'Clear' && <img alt='Weather Icon' src={clear}/>}
-            {(eachDay.weather[0].main).includes('Rain') && <img alt='Weather Icon' src={rain}/>}
-            {(eachDay.weather[0].main).includes('snow') && <img alt='Weather Icon' src={snow}/>}
-            {(eachDay.weather[0].main).includes('Cloud') && <img alt='Weather Icon' src={clouds}/>}
+            {eachDay.weather[0].main === 'Clear' && <img alt='Weather Icon' src={clear} />}
+            {(eachDay.weather[0].main).includes('Rain') && <img alt='Weather Icon' src={rain} />}
+            {(eachDay.weather[0].main).includes('snow') && <img alt='Weather Icon' src={snow} />}
+            {(eachDay.weather[0].main).includes('Cloud') && <img alt='Weather Icon' src={clouds} />}
             <p>{eachDay.weather[0].main}</p>
-            <h3>70</h3>
+            <h3>{Math.round(eachDay.main.temp * 10) / 10}
+              <span className={styles.degree}>
+                {`\xB0`}
+              </span>
+              <span className={styles.unit}>
+                F
+              </span></h3>
           </div>
         </button>
       )
