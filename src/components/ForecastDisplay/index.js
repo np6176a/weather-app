@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import uniqBy from 'lodash/uniqBy'
 import rain from '../../assets/rain.svg'
 import styles from './ForecastDisplay.module.scss'
 import clear from '../../assets/clear.svg'
@@ -10,8 +11,12 @@ import clouds from '../../assets/partial.svg'
 class ForecastDisplay extends PureComponent {
   render () {
     const { weatherData, onSelectedDateChange } = this.props
-    console.log(weatherData)
-    const weather = weatherData.slice(0, 6).map((eachDay) => {
+    const newData = weatherData.map(eDay => ({
+      ...eDay,
+      dateStr: moment.unix(eDay['dt']).format('YYYY-MM-DD')
+    }))
+    const data = uniqBy(newData, 'dateStr')
+    const weather = data.map((eachDay) => {
       const date = moment.unix(eachDay['dt']).format('MMM Do')
       return (
         <button
