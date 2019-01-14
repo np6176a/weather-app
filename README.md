@@ -40,6 +40,11 @@ Styling for each component is done using React SCSS modules. This keeps the CSS 
 and easy to read. Some cool UI style features include dynamic weather icons, 
 day and night mode.
 
+<p align="center">
+  <img src="readme_images/day.png" width="300">
+  <img src="readme_images/night.png" width="300">
+</p>
+
 ## Weather Information
 
 The Yahoo API that was recommended is no longer active this year. The project uses an
