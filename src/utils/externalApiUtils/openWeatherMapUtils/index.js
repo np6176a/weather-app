@@ -5,11 +5,10 @@ const DEFAULT_PARAMS = {
   units: 'imperial',
   mode: 'json'
 }
-const BUILD_URL_GEO = 'https://api.openweathermap.org/data/2.5/forecast'
-const BUILD_URL_CITY_ID = 'https://api.openweathermap.org/data/2.5/forecast'
+const BUILD_URL = 'https://api.openweathermap.org/data/2.5/forecast'
 
 export const getOpenWeatherDataByGeo = async ({ lat, lng }) => {
-  const result = await axios.get(BUILD_URL_GEO,
+  const result = await axios.get(BUILD_URL,
     {
       params: {
         ...DEFAULT_PARAMS,
@@ -26,7 +25,7 @@ export const getOpenWeatherDataByGeo = async ({ lat, lng }) => {
 }
 
 export const getOpenWeatherDateByCityId = async (cityId) => {
-  const result = await axios.get(BUILD_URL_CITY_ID,{
+  const result = await axios.get(BUILD_URL, {
     params: {
       ...DEFAULT_PARAMS,
       id: cityId,

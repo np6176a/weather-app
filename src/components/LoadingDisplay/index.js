@@ -7,7 +7,7 @@ class LoadingDisplay extends PureComponent {
     return (
       <div className={styles.loadDisplay}>
         <div className={styles.wrap}>
-          <img alt='Search Gif' src={loading}/>
+          <img alt='Search Gif' src={loading} />
           <h4>Loading</h4>
         </div>
       </div>
@@ -16,4 +16,3 @@ class LoadingDisplay extends PureComponent {
 }
 
 export default LoadingDisplay
-
