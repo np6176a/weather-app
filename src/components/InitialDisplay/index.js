@@ -1,8 +1,12 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import search from '../../assets/searchGif.gif'
 import styles from './InitialDisplay.module.scss'
 
-class InitialDisplay extends PureComponent {
+class InitialDisplay extends Component {
+  componentDidMount(){
+    const {currentGeoLocation} = this.props
+    currentGeoLocation()
+  }
   render () {
     return (
       <div className='row center-xs'>
@@ -17,4 +21,3 @@ class InitialDisplay extends PureComponent {
 }
 
 export default InitialDisplay
-
