@@ -28,7 +28,8 @@ class App extends Component {
       weatherData: {},
       allLocations: readLocationData(),
       selectedDate: null,
-      userInput: ''
+      userInput: '',
+      currentGeo: {}
     }
     this.removeLocation = this.removeLocation.bind(this)
     this.handleError = this.handleError.bind(this)
@@ -38,6 +39,8 @@ class App extends Component {
     this.onSelectPrevLocation = this.onSelectPrevLocation.bind(this)
     this.onSelectedDateChange = this.onSelectedDateChange.bind(this)
     this.onUserInputChange = this.onUserInputChange.bind(this)
+    this.getCurrentGeoLocation = this.getCurrentGeoLocation.bind(this)
+    this.onInitialLocation = this.onInitialLocation.bind(this)
   }
 
   removeLocation ({ cityId }) {
@@ -58,6 +61,16 @@ class App extends Component {
     this.setState({ selectedDate })
   }
 
+  getCurrentGeoLocation(){
+    let pos = {}
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(updateCurrentGeo);
+    }
+    function updateCurrentGeo(position) {
+      onInitialLocation (position.coords.latitude, position.coords.longitude)
+    }
+  }
+
   onUserInputChange (event) {
     const userInput = event.target.value
     this.setState({ userInput })
@@ -66,6 +79,30 @@ class App extends Component {
   handleError (e) {
     console.log(e)
     this.setState({ hasError: true })
+  }
+
+  async onInitialLocation (lat, lng){
+    this.setState({ loading: true, hasError: false, invalidLocation: false,
+      currentGeo:{
+        lat,
+        lng
+      } })
+    console.log(currentGeo)
+    // try {
+    //   const { lat, lng } = await getLocationFromOpenCage(initialLoc)
+    //   if (!lat) {
+    //     this.setState({ loading: false, invalidLocation: true })
+    //     return
+    //   }
+    //   const { cityId, name, forecast } = await getOpenWeatherDataByGeo({ lat, lng })
+    //   const updatedLocations = this.mergeLocation({ cityId, userInput })
+    //   this.updateAllLocations({ allLocations: updatedLocations })
+    //   this.setState({
+    //     weatherData: { cityId, name, forecast, userInput },
+    //     selectedDate: forecast[0].dt
+    //   })
+    // } catch (e) { this.handleError(e) }
+    // this.setState({ loading: false })
   }
 
   async onLocationChange (e) {
@@ -131,7 +168,7 @@ class App extends Component {
           allLocations={allLocations}
           removeLocation={this.removeLocation}
         />
-        {!forecast && <InitialDisplay />}
+        {!forecast && <InitialDisplay currentGeoLocation={this.getCurrentGeoLocation} />}
         {
           forecast && (
             <>
