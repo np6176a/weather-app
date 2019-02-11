@@ -3,10 +3,11 @@ import search from '../../assets/searchGif.gif'
 import styles from './InitialDisplay.module.scss'
 
 class InitialDisplay extends Component {
-  componentDidMount(){
-    const {currentGeoLocation} = this.props
-    currentGeoLocation()
+  componentDidMount () {
+    const { onInitialLocation } = this.props
+    onInitialLocation()
   }
+
   render () {
     return (
       <div className='row center-xs'>
