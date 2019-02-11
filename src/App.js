@@ -38,6 +38,7 @@ class App extends Component {
     this.onLocationChange = this.onLocationChange.bind(this)
     this.updateAllLocations = this.updateAllLocations.bind(this)
     this.onSelectPrevLocation = this.onSelectPrevLocation.bind(this)
+    this.onNewLocation = this.onNewLocation.bind(this)
     this.onSelectedDateChange = this.onSelectedDateChange.bind(this)
     this.onUserInputChange = this.onUserInputChange.bind(this)
     this.onInitialLocation = this.onInitialLocation.bind(this)
@@ -66,6 +67,15 @@ class App extends Component {
     this.setState({ userInput })
   }
 
+  onNewLocation ({ cityId, name, forecast, userInput }) {
+    const updatedLocations = this.mergeLocation({ cityId, userInput })
+    this.updateAllLocations({ allLocations: updatedLocations })
+    this.setState({
+      weatherData: { cityId, name, forecast, userInput },
+      selectedDate: forecast[0].dt
+    })
+  }
+
   handleError (e) {
     console.log(e)
     this.setState({ hasError: true })
@@ -80,13 +90,7 @@ class App extends Component {
         return
       }
       const { cityId, name, forecast } = await getOpenWeatherDataByGeo({ lat, lng })
-      const userInput = name
-      const updatedLocations = this.mergeLocation({ cityId, userInput })
-      this.updateAllLocations({ allLocations: updatedLocations })
-      this.setState({
-        weatherData: { cityId, name, forecast, userInput },
-        selectedDate: forecast[0].dt
-      })
+      this.onNewLocation({ cityId, name, forecast, userInput: name })
     } catch (e) { this.handleError(e) }
     this.setState({ loading: false })
   }
@@ -102,12 +106,7 @@ class App extends Component {
         return
       }
       const { cityId, name, forecast } = await getOpenWeatherDataByGeo({ lat, lng })
-      const updatedLocations = this.mergeLocation({ cityId, userInput })
-      this.updateAllLocations({ allLocations: updatedLocations })
-      this.setState({
-        weatherData: { cityId, name, forecast, userInput },
-        selectedDate: forecast[0].dt
-      })
+      this.onNewLocation({ cityId, name, forecast, userInput })
     } catch (e) { this.handleError(e) }
     this.setState({ loading: false })
   }
